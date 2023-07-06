@@ -1,0 +1,22 @@
+{
+    "files.trimTrailingWhitespace": true,
+    "java.jdt.ls.lombokSupport.enabled": true,
+    "[java]": {
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
+        "editor.autoIndent": "keep",
+    },
+    "[yaml]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "keep",
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": true
+        }
+    },
+    "java.configuration.updateBuildConfiguration": "automatic"
+}
