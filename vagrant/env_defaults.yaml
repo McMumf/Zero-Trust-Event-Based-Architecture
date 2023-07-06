@@ -1,0 +1,8 @@
+name: zero-trust-dev-env
+cpu: 4
+memory: 16000
+swap: disable
+
+folder:
+  - host: ../
+    guest: /opt/zero-trust

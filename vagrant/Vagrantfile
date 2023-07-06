@@ -1,0 +1,15 @@
+require 'yaml'
+
+# Load default config
+dir         = File.dirname(File.expand_path(__FILE__))
+settings    = YAML::load_file("#{dir}/env_defaults.yaml")
+
+# Merge env overrides if they exist
+if File.exists?("#{dir}/env.yaml")
+    env_settings = YAML::load_file("#{dir}/env.yaml")
+    settings.merge!(env_settings)
+end
+
+Vagrant.configure('2') do |config|
+
+end
