@@ -10,6 +10,48 @@ if File.exists?("#{dir}/env.yaml")
     settings.merge!(env_settings)
 end
 
-Vagrant.configure('2') do |config|
+Vagrant.configure("2") do |config|
+
+    config.vm.box = "debian/bookworm64"
+
+    config.vm.provider 'virtualbox' do |vb|
+        vb.name = settings['name']
+        vb.cpus = settings['cpu']
+        vb.memory = settings['memory']
+        vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+    end
+
+    # Install build-essential
+    config.vm.provision "shell", inline: <<-SHELL
+        sudo apt update
+        sudo apt install build-essential
+    SHELL
+
+    # Configure Firewall
+    config.vm.provision "shell", inline: <<-SHELL
+        apt remove iptables -y && apt install nftables
+    SHELL
+
+    # Install Helm
+    config.vm.provision "shell", inline: <<-SHELL
+        HELM_DOWNLOAD_URL='https://get.helm.sh/helm-v3.12.1-linux-arm64.tar.gz'
+        wget "$HELM_DOWNLOAD_URL"
+        tar -zxvf helm-v3.0.0-linux-amd64.tar.gz
+        mv linux-amd64/helm /usr/local/bin/helm
+        rm -r linux-amd64/helm
+    SHELL
+
+    # Install k9s
+    config.vm.provision "shell", inline: <<-SHELL
+        K9S_DOWNLOAD_URL='https://github.com/derailed/k9s/releases/download/v0.24.15/k9s_Linux_x86_64.tar.gz'
+        wget "$K9S_DOWNLOAD_URL"
+        tar -zxvf k9s_Linux_x86_64.tar.gz
+        mv k9s /usr/local/bin/k9s
+    SHELL
+
+    # install k3s
+    config.vm.provision "shell", inline: <<-SHELL
+        curl -sfL https://get.k3s.io | sh -
+    SHELL
 
 end
