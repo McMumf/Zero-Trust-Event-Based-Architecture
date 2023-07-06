@@ -1,0 +1,3 @@
+rootProject.name = 'zero-trust-event-driven-architecture'
+
+include 'messagepublisher'
