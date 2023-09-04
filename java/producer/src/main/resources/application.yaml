@@ -4,7 +4,9 @@ server:
 
 spring:
   kafka:
+    bootstrap-server: 9092
     producer:
-      bootstrap-server: 9092
+      client-id: producer
+      topic: "some-topic"
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
